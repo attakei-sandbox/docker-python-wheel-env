@@ -1,7 +1,6 @@
 FROM centos:7
 MAINTAINER Kazuya Takei
 
-
 # Install python 3.6
 RUN yum install -y epel-release
 RUN yum localinstall -y https://centos7.iuscommunity.org/ius-release.rpm
@@ -9,5 +8,13 @@ RUN yum install -y \
         python36u python36u-pip python36u-devel
 RUN yum install -y gcc git2u
 RUN pip3.6 install wheel
+RUN mkdir /wheels
 
-CMD ["python3.6", "-V"]
+RUN echo '#!/bin/sh' >> /entrypoint.sh && \
+    echo 'if [ "$YUM_PACKAGES" != "" ]; then' >> /entrypoint.sh && \
+    echo 'yum install -y $YUM_PACKAGES' >> /entrypoint.sh && \
+    echo 'fi' >> /entrypoint.sh && \
+    echo 'pip3.6 wheel -w /wheels $@' >> /entrypoint.sh && \
+    chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
