@@ -12,9 +12,11 @@ RUN mkdir /wheels
 
 RUN echo '#!/bin/sh' >> /entrypoint.sh && \
     echo 'if [ "$YUM_PACKAGES" != "" ]; then' >> /entrypoint.sh && \
-    echo 'yum install -y $YUM_PACKAGES' >> /entrypoint.sh && \
+    echo '  yum install -y $YUM_PACKAGES' >> /entrypoint.sh && \
     echo 'fi' >> /entrypoint.sh && \
-    echo 'pip3.6 wheel -w /wheels $@' >> /entrypoint.sh && \
+    echo 'if [ $# -ne 0 ]; then' >> /entrypoint.sh && \
+    echo '  pip3.6 wheel -w /wheels $@' >> /entrypoint.sh && \
+    echo 'fi' >> /entrypoint.sh && \
     chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
