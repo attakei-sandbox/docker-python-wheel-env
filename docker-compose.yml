@@ -12,4 +12,4 @@ services:
     depends_on:
       - py36
     volumes:
-      - ./mysqlclient:/project/dist
+      - ./wheels:/project/dist
