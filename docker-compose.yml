@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  py36:
+    build:
+      context: .
+      dockerfile: Dockerfile.py36
+    image: attakei/wheel-py36
