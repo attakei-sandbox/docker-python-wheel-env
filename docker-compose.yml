@@ -6,3 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile.py36
     image: attakei/wheel-py36
+  mysqlclient:
+    build:
+      context: mysqlclient
+    depends_on:
+      - py36
+    volumes:
+      - ./mysqlclient:/project/dist

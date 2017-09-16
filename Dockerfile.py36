@@ -6,6 +6,8 @@ MAINTAINER Kazuya Takei
 RUN yum install -y epel-release
 RUN yum localinstall -y https://centos7.iuscommunity.org/ius-release.rpm
 RUN yum install -y \
-        python36u python36u-pip python36u-devel \
-    && ln -s /usr/bin/pip3.6 /usr/bin/pip
-RUN pip install wheel
+        python36u python36u-pip python36u-devel
+RUN yum install -y gcc git2u
+RUN pip3.6 install wheel
+
+CMD ["python3.6", "-V"]
