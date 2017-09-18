@@ -1,4 +1,4 @@
-version: '2'
+ockversion: '2'
 
 services:
   py36:
@@ -29,3 +29,10 @@ services:
     volumes:
       - ./wheels:/wheels
     command: scrapy==1.4.0
+  errbot:
+    depends_on:
+      - py36
+    image: attakei/wheel-py36
+    volumes:
+      - ./wheels:/wheels
+    command: errbot==5.1.2
