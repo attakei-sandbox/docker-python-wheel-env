@@ -22,3 +22,10 @@ services:
     volumes:
       - ./wheels:/wheels
     command: apache-airflow==1.8.2
+  scrapy:
+    depends_on:
+      - py36
+    image: attakei/wheel-py36
+    volumes:
+      - ./wheels:/wheels
+    command: scrapy==1.4.0
